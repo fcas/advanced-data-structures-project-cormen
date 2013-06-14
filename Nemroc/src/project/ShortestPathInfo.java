@@ -26,11 +26,15 @@
 
 package project;
 
+import java.util.ArrayList;
+
 /** Class for information determined about a vertex during a
  * shortest-path algorithm. */
 
 public class ShortestPathInfo
 {
+	ArrayList<Vertex> caminho = new ArrayList<Vertex>();
+	
     /** The current shortest-path estimate for this vertex. */
     private double d;
 
@@ -68,9 +72,14 @@ public class ShortestPathInfo
      */
     public void setPredecessor(Vertex v)
     {
+    caminho.add(v);	
 	pi = v;
     }
 
+    public ArrayList<Vertex> getCaminho() {
+		return caminho;
+	}
+    
     /** Returns the predecessor. */
     public Vertex getPredecessor()
     {
