@@ -9,17 +9,16 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 
-public class MainBellmanFord {
-	
-	private static final String caminhoArquivo = System.getProperty("user.dir") + "/src/testes/bellmanford/";
+public class MainDijkstra {
+	private static final String caminhoArquivo = System.getProperty("user.dir") + "/src/testes/dijkstra/";
 	private static List<String> arquivos = new ArrayList<String>();
 	static BufferedReader in;
 	
-	protected BellmanFord bellmanford;
+	protected Dijkstra dijkstra;
 	
-	public MainBellmanFord(WeightedAdjacencyListGraph grafo) throws FileNotFoundException {
+	public MainDijkstra(WeightedAdjacencyListGraph grafo) throws FileNotFoundException {
 		
-		bellmanford = new BellmanFord(grafo);
+		dijkstra = new Dijkstra(grafo);
 		
 	}
 	
@@ -30,21 +29,21 @@ public class MainBellmanFord {
 			
 			switch(palavras[0]){
 			case "edge":
-				bellmanford.g.addEdge(Integer.parseInt(palavras[1]), Integer.parseInt(palavras[2]), Double.parseDouble(palavras[3]));
+				dijkstra.g.addEdge(Integer.parseInt(palavras[1]), Integer.parseInt(palavras[2]), Double.parseDouble(palavras[3]));
 				System.out.println("-");
 				break;
 				
 			case "shortest":
 				Stack<Vertex> pilha = new Stack<Vertex>();
-				bellmanford.computeShortestPaths(bellmanford.g.getVertex(Integer.parseInt(palavras[1])));
-				ShortestPathInfo destino = bellmanford.getShortestPathInfo(bellmanford.g.getVertex(Integer.parseInt(palavras[2])));
+				dijkstra.computeShortestPaths(dijkstra.g.getVertex(Integer.parseInt(palavras[1])));
+				ShortestPathInfo destino = dijkstra.getShortestPathInfo(dijkstra.g.getVertex(Integer.parseInt(palavras[2])));
 				double tamanho = destino.getEstimate();
-				Vertex aux = bellmanford.g.getVertex(Integer.parseInt(palavras[2]));
+				Vertex aux = dijkstra.g.getVertex(Integer.parseInt(palavras[2]));
 				do {
 					pilha.push(aux);
 					aux = destino.getPredecessor();
 					if (aux != null){
-						destino = bellmanford.getShortestPathInfo(aux);
+						destino = dijkstra.getShortestPathInfo(aux);
 					}
 				} while(aux != null);
 				
@@ -58,8 +57,8 @@ public class MainBellmanFord {
 				break;
 				
 			case "hasNegativeCicle":
-				bellmanford.computeShortestPaths(bellmanford.g.adj[0].thisVertex);
-				System.out.println(!bellmanford.hasNoNegativeWeightCycle());
+				dijkstra.computeShortestPaths(dijkstra.g.adj[0].thisVertex);
+				System.out.println(!dijkstra.hasNoNegativeWeightCycle());
 				break;
 			}
 			linha = in.readLine();
@@ -67,6 +66,7 @@ public class MainBellmanFord {
 	}
 	
 	public static void main(String[] args) throws IOException {
+		
 		String nome_arquivo="";
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in); 
@@ -74,19 +74,17 @@ public class MainBellmanFord {
 		System.out.println("Informe o nome do arquivo");
 		nome_arquivo = scanner.nextLine();
 		
-		arquivos.add(caminhoArquivo + nome_arquivo);
 		
+		arquivos.add(caminhoArquivo + nome_arquivo);
 		in = new BufferedReader(new FileReader(arquivos.get(0)));
 		String card = in.readLine();
 		WeightedAdjacencyListGraph grafo = new WeightedAdjacencyListGraph(Integer.parseInt(card), true);
 		for (int i = 0; i < Integer.parseInt(card); i++){
 			grafo.addVertex(i, Integer.toString(i));
 		}
-		MainBellmanFord a = new MainBellmanFord(grafo);
+		MainDijkstra a = new MainDijkstra(grafo);
 		a.leArquivo();
 	}
-	
-	
 	
 
 }
