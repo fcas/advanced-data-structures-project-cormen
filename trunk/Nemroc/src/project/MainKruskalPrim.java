@@ -7,13 +7,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Stack;
 import java.util.TreeSet;
 
 import project.AdjacencyListGraph.Edge;
 import project.WeightedAdjacencyListGraph.WeightedEdge;
 
-public class MainKruskal {
+public class MainKruskalPrim {
 
 	private static final String caminhoArquivo = System.getProperty("user.dir") + "/src/testes/kruskalprim/";
 	private static List<String> arquivos = new ArrayList<String>();
@@ -21,7 +22,7 @@ public class MainKruskal {
 	
 	protected WeightedAdjacencyListGraph grafo;
 	
-	public MainKruskal(WeightedAdjacencyListGraph grafo) throws FileNotFoundException {
+	public MainKruskalPrim(WeightedAdjacencyListGraph grafo) throws FileNotFoundException {
 		
 		this.grafo = grafo;
 		
@@ -86,9 +87,16 @@ public class MainKruskal {
 	public static void main(String[] args) throws IOException {
 		//TODO fazer nome do arquivo ser entrada de teclado
 		
-		arquivos.add(caminhoArquivo + "agm2.in");
-//		arquivos.add(caminhoArquivo + "bellmanford2.in");
-//		arquivos.add(caminhoArquivo + "bellmanford3.in");
+		String nome_arquivo="";
+		@SuppressWarnings("resource")
+		Scanner scanner = new Scanner(System.in); 
+		
+		System.out.println("Informe o nome do arquivo");
+		nome_arquivo = scanner.nextLine();
+		
+		
+		arquivos.add(caminhoArquivo + nome_arquivo);
+
 		in = new BufferedReader(new FileReader(arquivos.get(0)));
 		String card = in.readLine();
 		WeightedAdjacencyListGraph grafo = new WeightedAdjacencyListGraph(Integer.parseInt(card), false);
@@ -96,7 +104,7 @@ public class MainKruskal {
 			grafo.addVertex(i, Integer.toString(i));
 		}
 		
-		MainKruskal a = new MainKruskal(grafo);
+		MainKruskalPrim a = new MainKruskalPrim(grafo);
 		a.leArquivo();
 	}
 }
