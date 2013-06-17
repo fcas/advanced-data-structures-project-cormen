@@ -14,11 +14,11 @@ public class MainBellmanFord {
 	private static List<String> arquivos = new ArrayList<String>();
 	static BufferedReader in;
 	
-	protected BellmanFord bellmanford;
+	protected WeightedAdjacencyGraph bellmanford;
 	
 	public MainBellmanFord(WeightedAdjacencyListGraph grafo) throws FileNotFoundException {
 		
-		bellmanford = new BellmanFord(grafo);
+		bellmanford = new WeightedAdjacencyGraph(grafo);
 		
 	}
 	
@@ -29,8 +29,6 @@ public class MainBellmanFord {
 			
 			switch(palavras[0]){
 			case "edge":
-				bellmanford.g.addVertex(Integer.parseInt(palavras[1]), palavras[1]);
-				bellmanford.g.addVertex(Integer.parseInt(palavras[2]), palavras[2]);
 				bellmanford.g.addEdge(Integer.parseInt(palavras[1]), Integer.parseInt(palavras[2]), Double.parseDouble(palavras[3]));
 				System.out.println("-");
 				break;
@@ -49,9 +47,12 @@ public class MainBellmanFord {
 					}
 				} while(aux != null);
 				
-				for (int i=0; i<pilha.size(); i++){
+				while(!pilha.isEmpty()){
+				
 					System.out.print(pilha.pop().getIndex() + " ");
 				}
+				
+				System.out.println("tamanho=" + tamanho );
 				
 				break;
 				
@@ -70,7 +71,10 @@ public class MainBellmanFord {
 //		arquivos.add(caminhoArquivo + "bellmanford3.in");
 		in = new BufferedReader(new FileReader(arquivos.get(0)));
 		String card = in.readLine();
-		WeightedAdjacencyListGraph grafo = new WeightedAdjacencyListGraph(Integer.parseInt(card), false);
+		WeightedAdjacencyListGraph grafo = new WeightedAdjacencyListGraph(Integer.parseInt(card), true);
+		for (int i = 0; i < Integer.parseInt(card); i++){
+			grafo.addVertex(i, Integer.toString(i));
+		}
 		MainBellmanFord a = new MainBellmanFord(grafo);
 		a.leArquivo();
 	}
