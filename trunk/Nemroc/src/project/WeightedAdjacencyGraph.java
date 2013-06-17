@@ -31,7 +31,7 @@ import java.util.Iterator;
 /** Implementation of the Bellman-Ford algorithm on page 588 of
  * <i>Introduction to Algorithms</i>, Second edition. */
 
-public class BellmanFord extends SingleSourceShortestPaths
+public class WeightedAdjacencyGraph extends SingleSourceShortestPaths
 {
     /**
      * Sets up the instance variables, including allocation of the
@@ -42,7 +42,7 @@ public class BellmanFord extends SingleSourceShortestPaths
      * @param theGraph The graph for which we are computing
      * single-source shortest paths.
      */
-    public BellmanFord(WeightedAdjacencyListGraph theGraph)
+    public WeightedAdjacencyGraph(WeightedAdjacencyListGraph theGraph)
     {
 	super(theGraph);
     }

@@ -108,7 +108,7 @@ public class Vertex
      * vertex. */
     public String toString()
     {
-	return name + " (index = " + index + ")"; 
+	return name + " (indice = " + index + ")"; 
     }
 }
 
