@@ -59,7 +59,6 @@ public class MainFloyd {
 	public static void main(String[] args) throws IOException {
 		
 		String nome_arquivo="";
-		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in); 
 		
 		System.out.println("Informe o nome do arquivo");
@@ -75,6 +74,7 @@ public class MainFloyd {
 		}
 		MainFloyd a = new MainFloyd(grafo);
 		a.leArquivo();
+		scanner.close();
 	}
 
 }

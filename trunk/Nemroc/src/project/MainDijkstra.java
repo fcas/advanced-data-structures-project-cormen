@@ -68,7 +68,6 @@ public class MainDijkstra {
 	public static void main(String[] args) throws IOException {
 		
 		String nome_arquivo="";
-		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in); 
 		
 		System.out.println("Informe o nome do arquivo");
@@ -84,6 +83,7 @@ public class MainDijkstra {
 		}
 		MainDijkstra a = new MainDijkstra(grafo);
 		a.leArquivo();
+		scanner.close();
 	}
 	
 

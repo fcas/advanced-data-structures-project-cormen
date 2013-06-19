@@ -88,7 +88,6 @@ public class MainKruskalPrim {
 		//TODO fazer nome do arquivo ser entrada de teclado
 		
 		String nome_arquivo="";
-		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in); 
 		
 		System.out.println("Informe o nome do arquivo");
@@ -106,5 +105,6 @@ public class MainKruskalPrim {
 		
 		MainKruskalPrim a = new MainKruskalPrim(grafo);
 		a.leArquivo();
+		scanner.close();
 	}
 }
