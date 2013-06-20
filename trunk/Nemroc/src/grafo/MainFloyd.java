@@ -41,15 +41,13 @@ public class MainFloyd {
 				
 				double[][] menorCaminho = floyd.computeShortestPaths(grafo);
 				
-				//System.out.println(menorCaminho[Integer.parseInt(palavras[1])][Integer.parseInt(palavras[2])]);
 			
 				boolean[][] existeCaminho = floyd.computeTransitiveClosure(grafo);
 			
 				if(!existeCaminho[Integer.parseInt(palavras[1])][Integer.parseInt(palavras[2])]){
 					System.out.println("No Path");
 				} else { 
-					//TODO SALVAR E IMPRIMIR CAMINHO
-					System.out.println("MENOR CAMINHO");
+					System.out.println("tamanho do caminho: " + menorCaminho[Integer.parseInt(palavras[1])][Integer.parseInt(palavras[2])]);
 				}
 				
 				break;
@@ -71,7 +69,7 @@ public class MainFloyd {
 		arquivos.add(caminhoArquivo + nome_arquivo);
 		in = new BufferedReader(new FileReader(arquivos.get(0)));
 		String card = in.readLine();
-		grafo = new GrafoMatrizAdjacenciaPesada(Integer.parseInt(card), true, 0);
+		grafo = new GrafoMatrizAdjacenciaPesada(Integer.parseInt(card), true, Double.MAX_VALUE);
 		for (int i = 0; i < Integer.parseInt(card); i++){
 			grafo.addVertex(i, Integer.toString(i));
 		}
