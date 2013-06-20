@@ -47,7 +47,7 @@ public class MainFloyd {
 				if(!existeCaminho[Integer.parseInt(palavras[1])][Integer.parseInt(palavras[2])]){
 					System.out.println("No Path");
 				} else { 
-					System.out.println("tamanho do caminho: " + menorCaminho[Integer.parseInt(palavras[1])][Integer.parseInt(palavras[2])]);
+					System.out.println("tamanho do caminho: " + (int) menorCaminho[Integer.parseInt(palavras[1])][Integer.parseInt(palavras[2])]);
 				}
 				
 				break;
