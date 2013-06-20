@@ -26,85 +26,86 @@
 
 package project;
 
-/** Implements the Floyd-Warshall algorithm for all-pairs shortest
- * paths from page 630 and the Transitive-Closure algorithm from
- * page 633 of <i>Introduction to Algorithms</i>, Second
- * edition. */
+/**
+ * Implements the Floyd-Warshall algorithm for all-pairs shortest paths from
+ * page 630 and the Transitive-Closure algorithm from page 633 of
+ * <i>Introduction to Algorithms</i>, Second edition.
+ */
 
-public class FloydWarshall extends AllPairsShortestPaths
-{
-    /** Computes all-pairs shortest paths.
-     *
-     * @param g A weighted graph represented as an adjacency matrix.
-     * @return A matrix of shortest-path weights.
-     */
-    public double[][] computeShortestPaths(WeightedAdjacencyMatrixGraph g)
-    {
-	int n = g.getCardV();
+public class FloydWarshall extends AllPairsShortestPaths {
+	/**
+	 * Computes all-pairs shortest paths.
+	 * 
+	 * @param g
+	 *            A weighted graph represented as an adjacency matrix.
+	 * @return A matrix of shortest-path weights.
+	 */
+	public double[][] computeShortestPaths(WeightedAdjacencyMatrixGraph g) {
+		int n = g.getCardV();
 
-	// Array d is triply indexed.  The first index is the
-	// iteration number, and the last two indices are the vertex
-	// indices i and j.  Think of d as indexed by d[k][i][j].
+		// Array d is triply indexed. The first index is the
+		// iteration number, and the last two indices are the vertex
+		// indices i and j. Think of d as indexed by d[k][i][j].
 
-	// Warning: Since i and j index vertices, they run from 0 to
-	// n-1.  Since k indexes an iteration, it runs from 0 to n.
-	// But when we use k to index a vertex, we need to subtract 1.
-	double d[][][] = new double[n+1][n][n];
+		// Warning: Since i and j index vertices, they run from 0 to
+		// n-1. Since k indexes an iteration, it runs from 0 to n.
+		// But when we use k to index a vertex, we need to subtract 1.
+		double d[][][] = new double[n + 1][n][n];
 
-	// d[0] is the weight matrix.
-	d[0] = graphToMatrix(g);
+		// d[0] is the weight matrix.
+		d[0] = graphToMatrix(g);
 
-	// Run the main loop.
-	for (int k = 1; k <= n; k++) {
-	    for (int i = 0; i < n; i++)
-		for (int j = 0; j < n; j++)
-		    d[k][i][j] = Math.min(d[k-1][i][j],
-					  d[k-1][i][k-1] + d[k-1][k-1][j]);
+		// Run the main loop.
+		for (int k = 1; k <= n; k++) {
+			for (int i = 0; i < n; i++)
+				for (int j = 0; j < n; j++)
+					d[k][i][j] = Math.min(d[k - 1][i][j], d[k - 1][i][k - 1]
+							+ d[k - 1][k - 1][j]);
+		}
+
+		return d[n];
 	}
 
-	return d[n];
-    }
+	/**
+	 * Computes the transitive closure of a directed graph.
+	 * 
+	 * @param g
+	 *            A graph represented as an adjacency matrix.
+	 * @return A transitive-closure matrix in which the [i][j] entry is
+	 *         <code>true</code> if there is a path from vertex <code>i</code>
+	 *         to vertex <code>j</code>, <code>false</code> otherwise.
+	 */
+	public boolean[][] computeTransitiveClosure(AdjacencyMatrixGraph g) {
+		int n = g.getCardV();
 
-    /** Computes the transitive closure of a directed graph.
-     *
-     * @param g A graph represented as an adjacency matrix.
-     * @return A transitive-closure matrix in which the [i][j] entry
-     * is <code>true</code> if there is a path from vertex
-     * <code>i</code> to vertex <code>j</code>, <code>false</code>
-     * otherwise.
-     */
-    public boolean[][] computeTransitiveClosure(AdjacencyMatrixGraph g)
-    {
-	int n = g.getCardV();
+		// Array t is triply indexed. The first index is the
+		// iteration number, and the last two indices are the vertex
+		// indices i and j. Think of t as indexed by t[k][i][j].
 
-	// Array t is triply indexed.  The first index is the
-	// iteration number, and the last two indices are the vertex
-	// indices i and j.  Think of t as indexed by t[k][i][j].
+		// Warning: Since i and j index vertices, they run from 0 to
+		// n-1. Since k indexes an iteration, it runs from 0 to n.
+		// But when we use k to index a vertex, we need to subtract 1.
+		boolean t[][][] = new boolean[n + 1][n][n];
 
-	// Warning: Since i and j index vertices, they run from 0 to
-	// n-1.  Since k indexes an iteration, it runs from 0 to n.
-	// But when we use k to index a vertex, we need to subtract 1.
-	boolean t[][][] = new boolean[n+1][n][n];
+		// Start by computing t[0].
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < n; j++)
+				t[0][i][j] = (i == j) || g.edgeExists(i, j);
 
-	// Start by computing t[0].
-	for (int i = 0; i < n; i++)
-	    for (int j = 0; j < n; j++)
-		t[0][i][j] = (i == j) || g.edgeExists(i, j);
+		// Run the main loop.
+		for (int k = 1; k <= n; k++) {
+			for (int i = 0; i < n; i++)
+				for (int j = 0; j < n; j++)
+					t[k][i][j] = t[k - 1][i][j]
+							|| (t[k - 1][i][k - 1] && t[k - 1][k - 1][j]);
+		}
 
-	// Run the main loop.
-	for (int k = 1; k <= n; k++) {
-	    for (int i = 0; i < n; i++)
-		for (int j = 0; j < n; j++)
-		    t[k][i][j] = t[k-1][i][j] ||
-			(t[k-1][i][k-1] && t[k-1][k-1][j]);
+		return t[n];
 	}
-
-	return t[n];
-    }
 }
 
 // $Id: FloydWarshall.java,v 1.1 2003/10/14 16:56:20 thc Exp $
 // $Log: FloydWarshall.java,v $
-// Revision 1.1  2003/10/14 16:56:20  thc
+// Revision 1.1 2003/10/14 16:56:20 thc
 // Initial revision.
 //
