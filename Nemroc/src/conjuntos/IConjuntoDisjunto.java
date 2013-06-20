@@ -1,6 +1,6 @@
 package conjuntos;
 
-public interface DisjointSetUnion {
+public interface IConjuntoDisjunto {
 
 	public Object makeSet(Object x);
 

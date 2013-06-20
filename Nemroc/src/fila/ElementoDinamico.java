@@ -1,6 +1,6 @@
 package fila;
 
-public interface DynamicSetElement extends Comparable {
+public interface ElementoDinamico extends Comparable {
 	public void setKey(Comparable key);
 
 	public Comparable getKey();
@@ -8,9 +8,9 @@ public interface DynamicSetElement extends Comparable {
 	public int compareTo(Object e);
 
 	public static class Helper {
-		public static int compareTo(DynamicSetElement e, Object o) {
-			if (o instanceof DynamicSetElement)
-				return e.getKey().compareTo(((DynamicSetElement) o).getKey());
+		public static int compareTo(ElementoDinamico e, Object o) {
+			if (o instanceof ElementoDinamico)
+				return e.getKey().compareTo(((ElementoDinamico) o).getKey());
 			else if (o instanceof Comparable)
 				return e.getKey().compareTo(o);
 			else
@@ -18,9 +18,9 @@ public interface DynamicSetElement extends Comparable {
 						"Tentativa de comparar um Elemento Dinamico com um objeto que nao eh comparavel.");
 		}
 
-		public static DynamicSetElement cast(Object o) {
-			if (o instanceof DynamicSetElement)
-				return (DynamicSetElement) o;
+		public static ElementoDinamico cast(Object o) {
+			if (o instanceof ElementoDinamico)
+				return (ElementoDinamico) o;
 			else
 				throw new ClassCastException(
 						"Objeto nao implementa a interface DynamicSetElement.");

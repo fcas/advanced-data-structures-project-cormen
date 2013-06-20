@@ -26,8 +26,8 @@
 
 package menorcaminho;
 
-import grafo.AdjacencyMatrixGraph;
-import grafo.WeightedAdjacencyMatrixGraph;
+import grafo.GrafoMatrizAdjacencia;
+import grafo.GrafoMatrizAdjacenciaPesada;
 
 /**
  * Implements the Floyd-Warshall algorithm for all-pairs shortest paths from
@@ -35,7 +35,7 @@ import grafo.WeightedAdjacencyMatrixGraph;
  * <i>Introduction to Algorithms</i>, Second edition.
  */
 
-public class FloydWarshall extends AllPairsShortestPaths {
+public class FloydWarshall extends APSP {
 	/**
 	 * Computes all-pairs shortest paths.
 	 * 
@@ -43,7 +43,7 @@ public class FloydWarshall extends AllPairsShortestPaths {
 	 *            A weighted graph represented as an adjacency matrix.
 	 * @return A matrix of shortest-path weights.
 	 */
-	public double[][] computeShortestPaths(WeightedAdjacencyMatrixGraph g) {
+	public double[][] computeShortestPaths(GrafoMatrizAdjacenciaPesada g) {
 		int n = g.getCardV();
 
 		// Array d is triply indexed. The first index is the
@@ -78,7 +78,7 @@ public class FloydWarshall extends AllPairsShortestPaths {
 	 *         <code>true</code> if there is a path from vertex <code>i</code>
 	 *         to vertex <code>j</code>, <code>false</code> otherwise.
 	 */
-	public boolean[][] computeTransitiveClosure(AdjacencyMatrixGraph g) {
+	public boolean[][] computeTransitiveClosure(GrafoMatrizAdjacencia g) {
 		int n = g.getCardV();
 
 		// Array t is triply indexed. The first index is the

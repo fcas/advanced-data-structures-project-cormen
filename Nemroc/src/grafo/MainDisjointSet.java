@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import conjuntos.DisjointSetForest;
+import conjuntos.ConjuntoDisjuntoFloresta;
 
 /**
  * 
@@ -19,10 +19,10 @@ public class MainDisjointSet {
 	private static List<String> arquivos = new ArrayList<String>();
 	static BufferedReader in;
 	
-	protected DisjointSetForest disjointSet;
+	protected ConjuntoDisjuntoFloresta disjointSet;
 	Object handle[];
 	
-	public MainDisjointSet(DisjointSetForest set, Object handle[]) throws FileNotFoundException {
+	public MainDisjointSet(ConjuntoDisjuntoFloresta set, Object handle[]) throws FileNotFoundException {
 		
 		disjointSet = set;
 		this.handle = handle;
@@ -61,7 +61,7 @@ public class MainDisjointSet {
 		in = new BufferedReader(new FileReader(arquivos.get(0)));
 		String card = in.readLine();
 		
-		DisjointSetForest set = new DisjointSetForest();
+		ConjuntoDisjuntoFloresta set = new ConjuntoDisjuntoFloresta();
 		Object handle[] = new Object[Integer.parseInt(card)];
 		for (int i = 0; i < handle.length; i++){
 			handle[i] = set.makeSet(i);

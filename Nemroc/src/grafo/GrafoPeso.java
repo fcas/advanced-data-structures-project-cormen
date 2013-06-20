@@ -2,15 +2,15 @@ package grafo;
 
 import java.util.Iterator;
 
-import menorcaminho.SingleSourceShortestPaths;
+import menorcaminho.SSSP;
 
-public class WeightedAdjacencyGraph extends SingleSourceShortestPaths {
+public class GrafoPeso extends SSSP {
 
-	public WeightedAdjacencyGraph(WeightedAdjacencyListGraph theGraph) {
+	public GrafoPeso(GrafoListaAdjacenciaPesada theGraph) {
 		super(theGraph);
 	}
 
-	public void computeShortestPaths(Vertex s) {
+	public void computeShortestPaths(Vertice s) {
 		initializeSingleSource(s);
 
 		int cardV = g.getCardV();
@@ -19,12 +19,12 @@ public class WeightedAdjacencyGraph extends SingleSourceShortestPaths {
 			Iterator vertexIter = g.vertexIterator();
 
 			while (vertexIter.hasNext()) {
-				Vertex u = (Vertex) vertexIter.next();
+				Vertice u = (Vertice) vertexIter.next();
 				double du = getShortestPathInfo(u).getEstimate();
-				WeightedEdgeIterator edgeIter = g.weightedEdgeIterator(u);
+				IteradorArestasPesadas edgeIter = g.weightedEdgeIterator(u);
 
 				while (edgeIter.hasNext()) {
-					Vertex v = (Vertex) edgeIter.next();
+					Vertice v = (Vertice) edgeIter.next();
 					double w = edgeIter.getWeight();
 					getShortestPathInfo(v).relax(u, du, w);
 				}
@@ -34,12 +34,12 @@ public class WeightedAdjacencyGraph extends SingleSourceShortestPaths {
 		Iterator vertexIter = g.vertexIterator();
 
 		while (vertexIter.hasNext()) {
-			Vertex u = (Vertex) vertexIter.next();
+			Vertice u = (Vertice) vertexIter.next();
 			double du = getShortestPathInfo(u).getEstimate();
-			WeightedEdgeIterator edgeIter = g.weightedEdgeIterator(u);
+			IteradorArestasPesadas edgeIter = g.weightedEdgeIterator(u);
 
 			while (edgeIter.hasNext()) {
-				Vertex v = (Vertex) edgeIter.next();
+				Vertice v = (Vertice) edgeIter.next();
 				double w = edgeIter.getWeight();
 				if (getShortestPathInfo(v).getEstimate() > du + w) {
 					noNegWeightCycle = false;

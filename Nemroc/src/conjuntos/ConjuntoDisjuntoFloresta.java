@@ -1,6 +1,6 @@
 package conjuntos;
 
-public class DisjointSetForest implements DisjointSetUnion {
+public class ConjuntoDisjuntoFloresta implements IConjuntoDisjunto {
 
 	private static class Node {
 		public Object theObject;

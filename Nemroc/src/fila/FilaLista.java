@@ -5,10 +5,10 @@ import grafo.SentinelDLL;
 import java.util.Iterator;
 
 
-public class QueueList {
+public class FilaLista {
 	private SentinelDLL list;
 
-	public QueueList() {
+	public FilaLista() {
 		list = new SentinelDLL();
 	}
 

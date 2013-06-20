@@ -11,7 +11,7 @@ import java.util.Scanner;
 import java.util.Stack;
 
 import menorcaminho.BellmanFord;
-import menorcaminho.ShortestPathInfo;
+import menorcaminho.MenorCaminhoInfo;
 
 public class MainBellmanFord {
 	
@@ -21,7 +21,7 @@ public class MainBellmanFord {
 	
 	protected BellmanFord bellmanford;
 	
-	public MainBellmanFord(WeightedAdjacencyListGraph grafo) throws FileNotFoundException {
+	public MainBellmanFord(GrafoListaAdjacenciaPesada grafo) throws FileNotFoundException {
 		
 		bellmanford = new BellmanFord(grafo);
 		
@@ -39,11 +39,11 @@ public class MainBellmanFord {
 				break;
 				
 			case "shortest":
-				Stack<Vertex> pilha = new Stack<Vertex>();
+				Stack<Vertice> pilha = new Stack<Vertice>();
 				bellmanford.computeShortestPaths(bellmanford.g.getVertex(Integer.parseInt(palavras[1])));
-				ShortestPathInfo destino = bellmanford.getShortestPathInfo(bellmanford.g.getVertex(Integer.parseInt(palavras[2])));
+				MenorCaminhoInfo destino = bellmanford.getShortestPathInfo(bellmanford.g.getVertex(Integer.parseInt(palavras[2])));
 				double tamanho = destino.getEstimate();
-				Vertex aux = bellmanford.g.getVertex(Integer.parseInt(palavras[2]));
+				Vertice aux = bellmanford.g.getVertex(Integer.parseInt(palavras[2]));
 				do {
 					pilha.push(aux);
 					aux = destino.getPredecessor();
@@ -81,7 +81,7 @@ public class MainBellmanFord {
 		
 		in = new BufferedReader(new FileReader(arquivos.get(0)));
 		String card = in.readLine();
-		WeightedAdjacencyListGraph grafo = new WeightedAdjacencyListGraph(Integer.parseInt(card), true);
+		GrafoListaAdjacenciaPesada grafo = new GrafoListaAdjacenciaPesada(Integer.parseInt(card), true);
 		for (int i = 0; i < Integer.parseInt(card); i++){
 			grafo.addVertex(i, Integer.toString(i));
 		}

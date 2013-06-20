@@ -11,7 +11,7 @@ import java.util.Scanner;
 import java.util.Stack;
 
 import menorcaminho.Dijkstra;
-import menorcaminho.ShortestPathInfo;
+import menorcaminho.MenorCaminhoInfo;
 
 public class MainDijkstra {
 	private static final String caminhoArquivo = System.getProperty("user.dir") + "/src/testes/dijkstra/";
@@ -20,7 +20,7 @@ public class MainDijkstra {
 	
 	protected Dijkstra dijkstra;
 	
-	public MainDijkstra(WeightedAdjacencyListGraph grafo) throws FileNotFoundException {
+	public MainDijkstra(GrafoListaAdjacenciaPesada grafo) throws FileNotFoundException {
 		
 		dijkstra = new Dijkstra(grafo);
 		
@@ -38,11 +38,11 @@ public class MainDijkstra {
 				break;
 				
 			case "shortest":
-				Stack<Vertex> pilha = new Stack<Vertex>();
+				Stack<Vertice> pilha = new Stack<Vertice>();
 				dijkstra.computeShortestPaths(dijkstra.g.getVertex(Integer.parseInt(palavras[1])));
-				ShortestPathInfo destino = dijkstra.getShortestPathInfo(dijkstra.g.getVertex(Integer.parseInt(palavras[2])));
+				MenorCaminhoInfo destino = dijkstra.getShortestPathInfo(dijkstra.g.getVertex(Integer.parseInt(palavras[2])));
 				double tamanho = destino.getEstimate();
-				Vertex aux = dijkstra.g.getVertex(Integer.parseInt(palavras[2]));
+				Vertice aux = dijkstra.g.getVertex(Integer.parseInt(palavras[2]));
 				do {
 					pilha.push(aux);
 					aux = destino.getPredecessor();
@@ -81,7 +81,7 @@ public class MainDijkstra {
 		arquivos.add(caminhoArquivo + nome_arquivo);
 		in = new BufferedReader(new FileReader(arquivos.get(0)));
 		String card = in.readLine();
-		WeightedAdjacencyListGraph grafo = new WeightedAdjacencyListGraph(Integer.parseInt(card), true);
+		GrafoListaAdjacenciaPesada grafo = new GrafoListaAdjacenciaPesada(Integer.parseInt(card), true);
 		for (int i = 0; i < Integer.parseInt(card); i++){
 			grafo.addVertex(i, Integer.toString(i));
 		}

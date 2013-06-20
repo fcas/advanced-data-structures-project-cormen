@@ -8,7 +8,7 @@ public class DFS {
 
 	protected DFSInfo[] dfsInfo;
 
-	public void search(AdjacencyListGraph g) {
+	public void search(GrafoListaAdjacencia g) {
 		dfsInfo = new DFSInfo[g.getCardV()];
 		for (int i = 0; i < dfsInfo.length; i++)
 			dfsInfo[i] = new DFSInfo();
@@ -18,13 +18,13 @@ public class DFS {
 		Iterator iter = g.vertexIterator();
 
 		while (iter.hasNext()) {
-			Vertex u = (Vertex) iter.next();
+			Vertice u = (Vertice) iter.next();
 			if (getDFSInfo(u).getColor() == Color.WHITE)
 				dfsVisit(g, u);
 		}
 	}
 
-	protected void dfsVisit(AdjacencyListGraph g, Vertex u) {
+	protected void dfsVisit(GrafoListaAdjacencia g, Vertice u) {
 		DFSInfo uInfo = getDFSInfo(u);
 		uInfo.setColor(Color.GRAY);
 		time++;
@@ -33,7 +33,7 @@ public class DFS {
 		Iterator iter = g.edgeIterator(u);
 
 		while (iter.hasNext()) {
-			Vertex v = (Vertex) iter.next();
+			Vertice v = (Vertice) iter.next();
 			DFSInfo vInfo = getDFSInfo(v);
 
 			if (vInfo.getColor() == Color.WHITE) {
@@ -48,7 +48,7 @@ public class DFS {
 		finish(g, u);
 	}
 
-	public DFSInfo getDFSInfo(Vertex v) {
+	public DFSInfo getDFSInfo(Vertice v) {
 		return getDFSInfo(v.getIndex());
 	}
 
@@ -56,9 +56,9 @@ public class DFS {
 		return dfsInfo[v];
 	}
 
-	protected void discover(AdjacencyListGraph g, Vertex u) {
+	protected void discover(GrafoListaAdjacencia g, Vertice u) {
 	}
 
-	protected void finish(AdjacencyListGraph g, Vertex u) {
+	protected void finish(GrafoListaAdjacencia g, Vertice u) {
 	}
 }

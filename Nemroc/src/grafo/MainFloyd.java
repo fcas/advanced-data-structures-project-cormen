@@ -18,9 +18,9 @@ public class MainFloyd {
 	static BufferedReader in;
 	
 	protected FloydWarshall floyd;
-	protected static WeightedAdjacencyMatrixGraph grafo;
+	protected static GrafoMatrizAdjacenciaPesada grafo;
 	
-	public MainFloyd(WeightedAdjacencyMatrixGraph grafo) throws FileNotFoundException {
+	public MainFloyd(GrafoMatrizAdjacenciaPesada grafo) throws FileNotFoundException {
 		
 		floyd = new FloydWarshall();
 		
@@ -71,7 +71,7 @@ public class MainFloyd {
 		arquivos.add(caminhoArquivo + nome_arquivo);
 		in = new BufferedReader(new FileReader(arquivos.get(0)));
 		String card = in.readLine();
-		grafo = new WeightedAdjacencyMatrixGraph(Integer.parseInt(card), true, 0);
+		grafo = new GrafoMatrizAdjacenciaPesada(Integer.parseInt(card), true, 0);
 		for (int i = 0; i < Integer.parseInt(card); i++){
 			grafo.addVertex(i, Integer.toString(i));
 		}

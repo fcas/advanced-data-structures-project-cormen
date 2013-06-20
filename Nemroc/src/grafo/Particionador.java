@@ -1,6 +1,6 @@
 package grafo;
 
-public class Partitioner {
+public class Particionador {
 	public int partition(Comparable[] array, int p, int r) {
 		Comparable x = array[r]; // x is the pivot
 		int i = p - 1;

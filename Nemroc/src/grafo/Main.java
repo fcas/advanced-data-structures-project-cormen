@@ -40,18 +40,18 @@ public class Main
     public static void main(String[] args)
     {
 	// Make an undirected graph.
-	WeightedAdjacencyListGraph graph =
-	    new WeightedAdjacencyListGraph(9, false);
+	GrafoListaAdjacenciaPesada graph =
+	    new GrafoListaAdjacenciaPesada(9, false);
 
-	Vertex a = new Vertex("a");
-	Vertex b = new Vertex("b");
-	Vertex c = new Vertex("c");
-	Vertex d = new Vertex("d");
-	Vertex e = new Vertex("e");
-	Vertex f = new Vertex("f");
-	Vertex g = new Vertex("g");
-	Vertex h = new Vertex("h");
-	Vertex i = new Vertex("i");
+	Vertice a = new Vertice("a");
+	Vertice b = new Vertice("b");
+	Vertice c = new Vertice("c");
+	Vertice d = new Vertice("d");
+	Vertice e = new Vertice("e");
+	Vertice f = new Vertice("f");
+	Vertice g = new Vertice("g");
+	Vertice h = new Vertice("h");
+	Vertice i = new Vertice("i");
 
 	graph.addVertex(a);
 	graph.addVertex(b);
@@ -84,13 +84,13 @@ public class Main
 	System.out.println("Graph:");
 	System.out.println(graph);
 
-	WeightedAdjacencyListGraph kruskalMST =
+	GrafoListaAdjacenciaPesada kruskalMST =
 	    (new Kruskal()).computeMST(graph);
 
 	System.out.println("MST computed by Kruskal's algorithm:");
 	System.out.println(kruskalMST);
 
-	WeightedAdjacencyListGraph primMST =
+	GrafoListaAdjacenciaPesada primMST =
 	    (new Prim()).computeMST(graph);
 
 	System.out.println("MST computed by Prim's algorithm:");
@@ -98,7 +98,7 @@ public class Main
 	
 	Iterator ite = primMST.edgeIterator(2);
 	while (ite.hasNext()) {
-		Vertex v = (Vertex) ite.next();
+		Vertice v = (Vertice) ite.next();
 		v.getIndex();
 	}
     }

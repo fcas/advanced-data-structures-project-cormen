@@ -3,7 +3,7 @@ package grafo;
 import java.util.Iterator;
 
 
-public interface WeightedEdgeIterator extends Iterator {
+public interface IteradorArestasPesadas extends Iterator {
 
 	public double getWeight();
 	

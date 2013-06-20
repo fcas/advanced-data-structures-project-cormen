@@ -1,6 +1,6 @@
 package conjuntos;
 
-public class DisjointSetLinkedList implements DisjointSetUnion {
+public class ConjuntoDisjuntoLista implements IConjuntoDisjunto {
 
 	private static class Node {
 		public Object theObject;

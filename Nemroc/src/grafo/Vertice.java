@@ -1,6 +1,6 @@
 package grafo;
 
-public class Vertex {
+public class Vertice {
 
 	public static final int UNKNOWN_INDEX = -1;
 
@@ -8,12 +8,12 @@ public class Vertex {
 
 	private String name;
 
-	public Vertex(String name) {
+	public Vertice(String name) {
 		index = UNKNOWN_INDEX;
 		this.name = name;
 	}
 
-	public Vertex(int index, String name) {
+	public Vertice(int index, String name) {
 		this.index = index;
 		this.name = name;
 	}

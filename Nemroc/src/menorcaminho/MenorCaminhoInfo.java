@@ -1,18 +1,18 @@
 package menorcaminho;
 
-import grafo.Vertex;
+import grafo.Vertice;
 
 import java.util.ArrayList;
 
 
-public class ShortestPathInfo {
-	ArrayList<Vertex> caminho = new ArrayList<Vertex>();
+public class MenorCaminhoInfo {
+	ArrayList<Vertice> caminho = new ArrayList<Vertice>();
 
 	private double d;
 
-	private Vertex pi;
+	private Vertice pi;
 
-	public ShortestPathInfo() {
+	public MenorCaminhoInfo() {
 		d = Double.POSITIVE_INFINITY;
 		pi = null;
 	}
@@ -25,20 +25,20 @@ public class ShortestPathInfo {
 		return d;
 	}
 
-	public void setPredecessor(Vertex v) {
+	public void setPredecessor(Vertice v) {
 		caminho.add(v);
 		pi = v;
 	}
 
-	public ArrayList<Vertex> getCaminho() {
+	public ArrayList<Vertice> getCaminho() {
 		return caminho;
 	}
 
-	public Vertex getPredecessor() {
+	public Vertice getPredecessor() {
 		return pi;
 	}
 
-	public boolean relax(Vertex u, double du, double w) {
+	public boolean relax(Vertice u, double du, double w) {
 		double newWeight = du + w;
 		if (newWeight < d) {
 			d = newWeight;

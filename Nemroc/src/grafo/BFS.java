@@ -3,13 +3,13 @@ package grafo;
 import java.awt.Color;
 import java.util.Iterator;
 
-import fila.QueueList;
+import fila.FilaLista;
 
 public class BFS {
 
 	private BFSInfo[] bfsInfo;
 
-	public void search(AdjacencyListGraph g, Vertex s) {
+	public void search(GrafoListaAdjacencia g, Vertice s) {
 
 		bfsInfo = new BFSInfo[g.getCardV()];
 		for (int i = 0; i < bfsInfo.length; i++)
@@ -19,18 +19,18 @@ public class BFS {
 		sInfo.setColor(Color.GRAY);
 		sInfo.setDistance(0);
 
-		QueueList q = new QueueList();
+		FilaLista q = new FilaLista();
 		q.enqueue(s);
 
 		while (!q.isEmpty()) {
-			Vertex u = (Vertex) q.dequeue();
+			Vertice u = (Vertice) q.dequeue();
 			BFSInfo uInfo = getBFSInfo(u);
 			int uDistance = uInfo.getDistance();
 
 			Iterator iter = g.edgeIterator(u);
 
 			while (iter.hasNext()) {
-				Vertex v = (Vertex) iter.next();
+				Vertice v = (Vertice) iter.next();
 				BFSInfo vInfo = getBFSInfo(v);
 
 				if (vInfo.getColor() == Color.WHITE) {
@@ -45,7 +45,7 @@ public class BFS {
 		}
 	}
 
-	public BFSInfo getBFSInfo(Vertex v) {
+	public BFSInfo getBFSInfo(Vertice v) {
 		return getBFSInfo(v.getIndex());
 	}
 

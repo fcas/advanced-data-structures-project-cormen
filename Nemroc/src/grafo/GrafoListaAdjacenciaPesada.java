@@ -2,20 +2,20 @@ package grafo;
 
 import java.util.Iterator;
 
-public class WeightedAdjacencyListGraph extends AdjacencyListGraph {
+public class GrafoListaAdjacenciaPesada extends GrafoListaAdjacencia {
 
-	public WeightedAdjacencyListGraph(int cardV, boolean directed) {
+	public GrafoListaAdjacenciaPesada(int cardV, boolean directed) {
 		super(cardV, directed);
 	}
 	
-	public void addEdge(Vertex u, Vertex v) {
+	public void addEdge(Vertice u, Vertice v) {
 		throw new UnsupportedOperationException();
 	}
 	
 	public void addEdge(int u, int v) {
 		throw new UnsupportedOperationException();
 	}
-	public void addEdge(Vertex u, Vertex v, double weight) {
+	public void addEdge(Vertice u, Vertice v, double weight) {
 		int uIndex = u.getIndex();
 		Edge x = new WeightedEdge(v, adj[uIndex].head, weight);
 		adj[uIndex].head = x;
@@ -45,7 +45,7 @@ public class WeightedAdjacencyListGraph extends AdjacencyListGraph {
 		
 		private double weight;
 
-		public WeightedEdge(Vertex v, Edge successor, double wgt) {
+		public WeightedEdge(Vertice v, Edge successor, double wgt) {
 			super(v, successor);
 			weight = wgt;
 		}
@@ -59,7 +59,7 @@ public class WeightedAdjacencyListGraph extends AdjacencyListGraph {
 		}
 	}
 
-	public Iterator edgeIterator(Vertex u) {
+	public Iterator edgeIterator(Vertice u) {
 		return new EdgeIterator(u.getIndex());
 	}
 
@@ -67,16 +67,16 @@ public class WeightedAdjacencyListGraph extends AdjacencyListGraph {
 		return new EdgeIterator(u);
 	}
 
-	public WeightedEdgeIterator weightedEdgeIterator(Vertex u) {
+	public IteradorArestasPesadas weightedEdgeIterator(Vertice u) {
 		return weightedEdgeIterator(u.getIndex());
 	}
 
-	public WeightedEdgeIterator weightedEdgeIterator(int u) {
+	public IteradorArestasPesadas weightedEdgeIterator(int u) {
 		return new EdgeIterator(u);
 	}
 
-	public class EdgeIterator extends AdjacencyListGraph.EdgeIterator implements
-			WeightedEdgeIterator {
+	public class EdgeIterator extends GrafoListaAdjacencia.EdgeIterator implements
+			IteradorArestasPesadas {
 
 		public EdgeIterator(int v) {
 			super(v);
@@ -91,8 +91,8 @@ public class WeightedAdjacencyListGraph extends AdjacencyListGraph {
 		}
 	}
 
-	protected AdjacencyListGraph makeEmptyGraph(int cardV, boolean directed) {
-		return new WeightedAdjacencyListGraph(cardV, directed);
+	protected GrafoListaAdjacencia makeEmptyGraph(int cardV, boolean directed) {
+		return new GrafoListaAdjacenciaPesada(cardV, directed);
 	}
 
 	public String toString() {
@@ -101,22 +101,22 @@ public class WeightedAdjacencyListGraph extends AdjacencyListGraph {
 		Iterator vertexIter = vertexIterator();
 		while (vertexIter.hasNext()) {
 			if (directed) {
-				Vertex u = (Vertex) vertexIter.next();
+				Vertice u = (Vertice) vertexIter.next();
 				result += u + ":\n";
 
-				WeightedEdgeIterator edgeIter = weightedEdgeIterator(u);
+				IteradorArestasPesadas edgeIter = weightedEdgeIterator(u);
 				while (edgeIter.hasNext()) {
-					Vertex v = (Vertex) edgeIter.next();
+					Vertice v = (Vertice) edgeIter.next();
 					double w = edgeIter.getWeight();
 					result += "    " + v + ", peso = " + w + "\n";
 				}
 			} else {
-				Vertex u = (Vertex) vertexIter.next();
+				Vertice u = (Vertice) vertexIter.next();
 				result += u + ":\n";
 
-				WeightedEdgeIterator edgeIter = weightedEdgeIterator(u);
+				IteradorArestasPesadas edgeIter = weightedEdgeIterator(u);
 				while (edgeIter.hasNext()) {
-					Vertex v = (Vertex) edgeIter.next();
+					Vertice v = (Vertice) edgeIter.next();
 					if (u.getIndex() < v.getIndex()) {
 						double w = edgeIter.getWeight();
 						result += "    " + v + ", peso = " + w + "\n";
