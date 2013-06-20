@@ -2,21 +2,21 @@ package grafo;
 
 import java.util.Iterator;
 
-public class AdjacencyMatrixGraph implements Graph {
+public class GrafoMatrizAdjacencia implements Grafo {
 	protected boolean directed;
 
 	protected int lastAdded;
 
 	protected int e;
 
-	protected Vertex[] vertices;
+	protected Vertice[] vertices;
 
 	protected boolean[][] a;
 
-	public AdjacencyMatrixGraph(int cardV, boolean directed) {
+	public GrafoMatrizAdjacencia(int cardV, boolean directed) {
 		this.directed = directed;
 		lastAdded = -1;
-		vertices = new Vertex[cardV];
+		vertices = new Vertice[cardV];
 		a = new boolean[cardV][cardV];
 
 		for (int i = 0; i < cardV; i++)
@@ -26,20 +26,20 @@ public class AdjacencyMatrixGraph implements Graph {
 		e = 0;
 	}
 
-	public Vertex addVertex(String name) {
+	public Vertice addVertex(String name) {
 		lastAdded++;
-		vertices[lastAdded] = new Vertex(lastAdded, name);
+		vertices[lastAdded] = new Vertice(lastAdded, name);
 		return vertices[lastAdded];
 	}
 
-	public Vertex addVertex(int index, String name) {
+	public Vertice addVertex(int index, String name) {
 		lastAdded = index;
-		vertices[lastAdded] = new Vertex(lastAdded, name);
+		vertices[lastAdded] = new Vertice(lastAdded, name);
 		return vertices[lastAdded];
 	}
 
-	public Vertex addVertex(Vertex v) {
-		if (v.getIndex() == Vertex.UNKNOWN_INDEX) {
+	public Vertice addVertex(Vertice v) {
+		if (v.getIndex() == Vertice.UNKNOWN_INDEX) {
 			lastAdded++;
 			v.setIndex(lastAdded);
 		} else
@@ -49,11 +49,11 @@ public class AdjacencyMatrixGraph implements Graph {
 		return v;
 	}
 
-	public Vertex getVertex(int index) {
+	public Vertice getVertex(int index) {
 		return vertices[index];
 	}
 
-	public void addEdge(Vertex u, Vertex v) {
+	public void addEdge(Vertice u, Vertice v) {
 		addEdge(u.getIndex(), v.getIndex());
 	}
 
@@ -90,7 +90,7 @@ public class AdjacencyMatrixGraph implements Graph {
 		}
 	}
 
-	public Iterator edgeIterator(Vertex u) {
+	public Iterator edgeIterator(Vertice u) {
 		return new EdgeIterator(u.getIndex());
 	}
 
@@ -140,7 +140,7 @@ public class AdjacencyMatrixGraph implements Graph {
 		return directed;
 	}
 
-	public boolean edgeExists(Vertex u, Vertex v) {
+	public boolean edgeExists(Vertice u, Vertice v) {
 		return edgeExists(u.getIndex(), v.getIndex());
 	}
 
@@ -153,12 +153,12 @@ public class AdjacencyMatrixGraph implements Graph {
 
 		Iterator vertexIter = vertexIterator();
 		while (vertexIter.hasNext()) {
-			Vertex u = (Vertex) vertexIter.next();
+			Vertice u = (Vertice) vertexIter.next();
 			result += u + ":\n";
 
 			Iterator edgeIter = edgeIterator(u);
 			while (edgeIter.hasNext()) {
-				Vertex v = (Vertex) edgeIter.next();
+				Vertice v = (Vertice) edgeIter.next();
 				result += "    " + v + "\n";
 			}
 		}

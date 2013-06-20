@@ -2,7 +2,7 @@ package fila;
 
 import java.util.Iterator;
 
-abstract public class LinkedList {
+abstract public class ListaLigada {
 	protected static class Node {
 		public Node next;
 
@@ -46,7 +46,7 @@ abstract public class LinkedList {
 
 	abstract public Iterator iterator();
 
-	abstract public void concatenate(LinkedList l);
+	abstract public void concatenate(ListaLigada l);
 
 	public String toString() {
 		String result = "";

@@ -3,9 +3,9 @@ package grafo;
 import java.util.Iterator;
 
 import excecoes.DeleteSentinelException;
-import fila.LinkedList;
+import fila.ListaLigada;
 
-public class SentinelDLL extends LinkedList {
+public class SentinelDLL extends ListaLigada {
 
 	protected final Node nil;
 
@@ -93,7 +93,7 @@ public class SentinelDLL extends LinkedList {
 		return new SentinelDLLIterator();
 	}
 
-	public void concatenate(LinkedList l) {
+	public void concatenate(ListaLigada l) {
 		SentinelDLL other = (SentinelDLL) l;
 		nil.prev.next = other.nil.next;
 		other.nil.next.prev = nil.prev;

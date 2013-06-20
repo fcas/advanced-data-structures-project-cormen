@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import excecoes.KeyUpdateException;
+import excecoes.AtualizacaoPrioridadeException;
 import fila.HeapInfo;
-import fila.MaxHeapPriorityQueue;
-import fila.MinHeapPriorityQueue;
+import fila.HeapMaximoFilaPrioridade;
+import fila.HeapMinimoFilaPrioridade;
 
 /**
  * 
@@ -23,8 +23,8 @@ public class MainPriorityQueue {
 	private static List<String> arquivos = new ArrayList<String>();
 	static BufferedReader in;
 	
-	private MaxHeapPriorityQueue maxHeap = new MaxHeapPriorityQueue();
-	private MinHeapPriorityQueue minHeap = new MinHeapPriorityQueue();
+	private HeapMaximoFilaPrioridade maxHeap = new HeapMaximoFilaPrioridade();
+	private HeapMinimoFilaPrioridade minHeap = new HeapMinimoFilaPrioridade();
 	private String heapType;
 	private Object handle[] = new Object[200];
 
@@ -59,7 +59,7 @@ public class MainPriorityQueue {
 				try{
 					maxHeap.increaseKey(handle[Integer.parseInt(palavras[1])], Integer.parseInt(palavras[2]));
 					System.out.println("-");
-				}catch (KeyUpdateException e){
+				}catch (AtualizacaoPrioridadeException e){
 					System.out.println("notupdated");
 				}
 				break;
@@ -68,7 +68,7 @@ public class MainPriorityQueue {
 				try{
 					minHeap.decreaseKey(handle[Integer.parseInt(palavras[1])], Integer.parseInt(palavras[2]));
 					System.out.println("-");
-				}catch (KeyUpdateException e){
+				}catch (AtualizacaoPrioridadeException e){
 					System.out.println("notupdated");
 				}
 				break;

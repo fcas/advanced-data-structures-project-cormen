@@ -3,24 +3,24 @@ package menorcaminho;
 import java.util.Iterator;
 
 
-import fila.DynamicSetElement;
-import fila.MinHeapPriorityQueue;
-import fila.MinPriorityQueue;
-import fila.DynamicSetElement.Helper;
-import grafo.Vertex;
-import grafo.WeightedAdjacencyListGraph;
-import grafo.WeightedEdgeIterator;
+import fila.ElementoDinamico;
+import fila.HeapMinimoFilaPrioridade;
+import fila.FilaPrioridadeMinima;
+import fila.ElementoDinamico.Helper;
+import grafo.Vertice;
+import grafo.GrafoListaAdjacenciaPesada;
+import grafo.IteradorArestasPesadas;
 
-public class Dijkstra extends SingleSourceShortestPaths {
+public class Dijkstra extends SSSP {
 
-	public Dijkstra(WeightedAdjacencyListGraph theGraph) {
+	public Dijkstra(GrafoListaAdjacenciaPesada theGraph) {
 		super(theGraph);
 	}
 
-	public void computeShortestPaths(Vertex s) {
+	public void computeShortestPaths(Vertice s) {
 		initializeSingleSource(s);
 
-		MinPriorityQueue q = new MinHeapPriorityQueue();
+		FilaPrioridadeMinima q = new HeapMinimoFilaPrioridade();
 
 		int cardV = g.getCardV();
 		for (int i = 0; i < cardV; i++) {
@@ -35,13 +35,13 @@ public class Dijkstra extends SingleSourceShortestPaths {
 		while (!q.isEmpty()) {
 			DijkstraInfo uInfo = (DijkstraInfo) q.extractMin();
 			uInfo.handle = null;
-			Vertex u = uInfo.theVertex;
+			Vertice u = uInfo.theVertex;
 			double du = getShortestPathInfo(u).getEstimate();
 
-			WeightedEdgeIterator edgeIter = g.weightedEdgeIterator(u);
+			IteradorArestasPesadas edgeIter = g.weightedEdgeIterator(u);
 
 			while (edgeIter.hasNext()) {
-				Vertex v = (Vertex) edgeIter.next();
+				Vertice v = (Vertice) edgeIter.next();
 				DijkstraInfo vInfo = (DijkstraInfo) getShortestPathInfo(v);
 				double weight = edgeIter.getWeight();
 				if (vInfo.relax(u, du, weight)) {
@@ -52,14 +52,14 @@ public class Dijkstra extends SingleSourceShortestPaths {
 		}
 	}
 
-	protected ShortestPathInfo newShortestPathInfo() {
+	protected MenorCaminhoInfo newShortestPathInfo() {
 		return new DijkstraInfo();
 	}
 
-	private static class DijkstraInfo extends ShortestPathInfo implements
-			DynamicSetElement {
+	private static class DijkstraInfo extends MenorCaminhoInfo implements
+			ElementoDinamico {
 
-		public Vertex theVertex;
+		public Vertice theVertex;
 
 		public Object handle;
 
@@ -76,7 +76,7 @@ public class Dijkstra extends SingleSourceShortestPaths {
 		}
 
 		public int compareTo(Object e) {
-			return DynamicSetElement.Helper.compareTo(this, e);
+			return ElementoDinamico.Helper.compareTo(this, e);
 		}
 	}
 }

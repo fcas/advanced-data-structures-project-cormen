@@ -2,7 +2,7 @@ package grafo;
 
 import java.util.Iterator;
 
-public class AdjacencyListGraph implements Graph {
+public class GrafoListaAdjacencia implements Grafo {
 	protected boolean directed;
 
 	protected int lastAdded;
@@ -11,27 +11,27 @@ public class AdjacencyListGraph implements Graph {
 
 	public AdjListInfo[] adj;
 
-	public AdjacencyListGraph(int cardV, boolean directed) {
+	public GrafoListaAdjacencia(int cardV, boolean directed) {
 		this.directed = directed;
 		lastAdded = -1;
 		adj = new AdjListInfo[cardV];
 		e = 0;
 	}
 
-	public Vertex addVertex(String name) {
+	public Vertice addVertex(String name) {
 		lastAdded++; // the index for this vertex
-		adj[lastAdded] = new AdjListInfo(new Vertex(lastAdded, name));
+		adj[lastAdded] = new AdjListInfo(new Vertice(lastAdded, name));
 		return adj[lastAdded].thisVertex;
 	}
 
-	public Vertex addVertex(int index, String name) {
+	public Vertice addVertex(int index, String name) {
 		lastAdded = index;
-		adj[lastAdded] = new AdjListInfo(new Vertex(lastAdded, name));
+		adj[lastAdded] = new AdjListInfo(new Vertice(lastAdded, name));
 		return adj[lastAdded].thisVertex;
 	}
 
-	public Vertex addVertex(Vertex v) {
-		if (v.getIndex() == Vertex.UNKNOWN_INDEX) {
+	public Vertice addVertex(Vertice v) {
+		if (v.getIndex() == Vertice.UNKNOWN_INDEX) {
 			lastAdded++;
 			v.setIndex(lastAdded);
 		} else
@@ -41,11 +41,11 @@ public class AdjacencyListGraph implements Graph {
 		return v;
 	}
 
-	public Vertex getVertex(int index) {
+	public Vertice getVertex(int index) {
 		return adj[index].thisVertex;
 	}
 
-	public void addEdge(Vertex u, Vertex v) {
+	public void addEdge(Vertice u, Vertice v) {
 
 		int uIndex = u.getIndex();
 		Edge x = new Edge(v, adj[uIndex].head);
@@ -75,11 +75,11 @@ public class AdjacencyListGraph implements Graph {
 
 	protected static class AdjListInfo {
 
-		public Vertex thisVertex;
+		public Vertice thisVertex;
 
 		public Edge head;
 
-		public AdjListInfo(Vertex v) {
+		public AdjListInfo(Vertice v) {
 			thisVertex = v;
 			head = null;
 		}
@@ -87,11 +87,11 @@ public class AdjacencyListGraph implements Graph {
 
 	protected static class Edge {
 
-		public Vertex vertex;
+		public Vertice vertex;
 
 		public Edge next;
 
-		public Edge(Vertex v, Edge successor) {
+		public Edge(Vertice v, Edge successor) {
 			vertex = v;
 			next = successor;
 		}
@@ -122,7 +122,7 @@ public class AdjacencyListGraph implements Graph {
 		}
 	}
 
-	public Iterator edgeIterator(Vertex u) {
+	public Iterator edgeIterator(Vertice u) {
 		return new EdgeIterator(u.getIndex());
 	}
 
@@ -174,16 +174,16 @@ public class AdjacencyListGraph implements Graph {
 		return directed;
 	}
 
-	public AdjacencyListGraph useSameVertices() {
-		AdjacencyListGraph newGraph = makeEmptyGraph(adj.length, directed);
+	public GrafoListaAdjacencia useSameVertices() {
+		GrafoListaAdjacencia newGraph = makeEmptyGraph(adj.length, directed);
 		for (int i = 0; i < adj.length; i++)
 			newGraph.addVertex(adj[i].thisVertex);
 
 		return newGraph;
 	}
 
-	protected AdjacencyListGraph makeEmptyGraph(int cardV, boolean directed) {
-		return new AdjacencyListGraph(cardV, directed);
+	protected GrafoListaAdjacencia makeEmptyGraph(int cardV, boolean directed) {
+		return new GrafoListaAdjacencia(cardV, directed);
 	}
 
 	public String toString() {
@@ -191,12 +191,12 @@ public class AdjacencyListGraph implements Graph {
 
 		Iterator vertexIter = vertexIterator();
 		while (vertexIter.hasNext()) {
-			Vertex u = (Vertex) vertexIter.next();
+			Vertice u = (Vertice) vertexIter.next();
 			result += u + ":\n";
 
 			Iterator edgeIter = edgeIterator(u);
 			while (edgeIter.hasNext()) {
-				Vertex v = (Vertex) edgeIter.next();
+				Vertice v = (Vertice) edgeIter.next();
 				result += "    " + v + "\n";
 			}
 		}

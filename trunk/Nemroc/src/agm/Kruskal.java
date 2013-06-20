@@ -3,26 +3,26 @@ package agm;
 import java.util.Iterator;
 
 
-import conjuntos.DisjointSetForest;
-import conjuntos.DisjointSetUnion;
+import conjuntos.ConjuntoDisjuntoFloresta;
+import conjuntos.IConjuntoDisjunto;
 import fila.MaxHeap;
-import grafo.Vertex;
-import grafo.WeightedAdjacencyListGraph;
-import grafo.WeightedEdgeIterator;
+import grafo.Vertice;
+import grafo.GrafoListaAdjacenciaPesada;
+import grafo.IteradorArestasPesadas;
 
-public class Kruskal implements MST {
+public class Kruskal implements AGM {
 
-	public WeightedAdjacencyListGraph computeMST(WeightedAdjacencyListGraph g) {
+	public GrafoListaAdjacenciaPesada computeMST(GrafoListaAdjacenciaPesada g) {
 
-		WeightedAdjacencyListGraph a = (WeightedAdjacencyListGraph) g
+		GrafoListaAdjacenciaPesada a = (GrafoListaAdjacenciaPesada) g
 				.useSameVertices();
 
-		DisjointSetUnion forest = new DisjointSetForest();
+		IConjuntoDisjunto forest = new ConjuntoDisjuntoFloresta();
 		Object handle[] = new Object[a.getCardV()];
 		Iterator vertexIter = g.vertexIterator();
 
 		while (vertexIter.hasNext()) {
-			Vertex v = (Vertex) vertexIter.next();
+			Vertice v = (Vertice) vertexIter.next();
 			handle[v.getIndex()] = forest.makeSet(v);
 		}
 
@@ -30,11 +30,11 @@ public class Kruskal implements MST {
 		int i = 0;
 		vertexIter = g.vertexIterator();
 		while (vertexIter.hasNext()) {
-			Vertex u = (Vertex) vertexIter.next();
+			Vertice u = (Vertice) vertexIter.next();
 
-			WeightedEdgeIterator edgeIter = g.weightedEdgeIterator(u);
+			IteradorArestasPesadas edgeIter = g.weightedEdgeIterator(u);
 			while (edgeIter.hasNext()) {
-				Vertex v = (Vertex) edgeIter.next();
+				Vertice v = (Vertice) edgeIter.next();
 
 				if (u.getIndex() < v.getIndex()) {
 					double w = edgeIter.getWeight();
@@ -60,13 +60,13 @@ public class Kruskal implements MST {
 
 	private static class WeightedEdge implements Comparable {
 
-		public Vertex u;
+		public Vertice u;
 
-		public Vertex v;
+		public Vertice v;
 
 		public double w;
 
-		public WeightedEdge(Vertex a, Vertex b, double weight) {
+		public WeightedEdge(Vertice a, Vertice b, double weight) {
 			u = a;
 			v = b;
 			w = weight;

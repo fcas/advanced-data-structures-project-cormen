@@ -1,12 +1,12 @@
 package fila;
 
-import fila.DynamicSetElement.Helper;
+import fila.ElementoDinamico.Helper;
 
 /**
  * 
  * @author Anderson Rodrigues
  */
-public class HeapInfo implements DynamicSetElement {
+public class HeapInfo implements ElementoDinamico {
 
 	String name;
 	int key;
@@ -28,7 +28,7 @@ public class HeapInfo implements DynamicSetElement {
 
 	@Override
 	public int compareTo(Object e) {
-		return DynamicSetElement.Helper.compareTo(this, e);
+		return ElementoDinamico.Helper.compareTo(this, e);
 	}
 
 	@Override

@@ -73,9 +73,9 @@ abstract public class Heap {
 	protected static class Handle implements Comparable {
 		protected int index;
 
-		protected DynamicSetElement info;
+		protected ElementoDinamico info;
 
-		protected Handle(int index, DynamicSetElement info) {
+		protected Handle(int index, ElementoDinamico info) {
 			this.index = index;
 			this.info = info;
 		}

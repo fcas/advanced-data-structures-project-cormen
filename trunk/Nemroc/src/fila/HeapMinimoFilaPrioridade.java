@@ -1,10 +1,10 @@
 package fila;
 
 import excecoes.HeapUnderflowException;
-import excecoes.KeyUpdateException;
+import excecoes.AtualizacaoPrioridadeException;
 
-public class MinHeapPriorityQueue extends MinHeap implements MinPriorityQueue {
-	public MinHeapPriorityQueue() {
+public class HeapMinimoFilaPrioridade extends MinHeap implements FilaPrioridadeMinima {
+	public HeapMinimoFilaPrioridade() {
 		super();
 	}
 
@@ -14,7 +14,7 @@ public class MinHeapPriorityQueue extends MinHeap implements MinPriorityQueue {
 		super.exchange(i, j);
 	}
 
-	public Object insert(DynamicSetElement x) {
+	public Object insert(ElementoDinamico x) {
 		if (array == null) {
 			array = new Comparable[1];
 			heapSize = 0;
@@ -33,7 +33,7 @@ public class MinHeapPriorityQueue extends MinHeap implements MinPriorityQueue {
 		return handle;
 	}
 
-	public DynamicSetElement minimum() throws HeapUnderflowException {
+	public ElementoDinamico minimum() throws HeapUnderflowException {
 		if (heapSize > 0)
 			return ((Handle) array[0]).info;
 		else {
@@ -41,10 +41,10 @@ public class MinHeapPriorityQueue extends MinHeap implements MinPriorityQueue {
 		}
 	}
 
-	public DynamicSetElement extractMin() {
+	public ElementoDinamico extractMin() {
 		if (heapSize < 1)
 			throw new HeapUnderflowException();
-		DynamicSetElement min = ((Handle) array[0]).info;
+		ElementoDinamico min = ((Handle) array[0]).info;
 
 		array[0] = array[heapSize - 1];
 		((Handle) array[0]).index = 0;
@@ -57,11 +57,11 @@ public class MinHeapPriorityQueue extends MinHeap implements MinPriorityQueue {
 	}
 
 	public void decreaseKey(Object element, Comparable newKey)
-			throws KeyUpdateException {
+			throws AtualizacaoPrioridadeException {
 		Handle handle = (Handle) element;
 
 		if (newKey.compareTo(handle.info.getKey()) > 0)
-			throw new KeyUpdateException();
+			throw new AtualizacaoPrioridadeException();
 
 		handle.info.setKey(newKey);
 		bubbleUp(handle.index);

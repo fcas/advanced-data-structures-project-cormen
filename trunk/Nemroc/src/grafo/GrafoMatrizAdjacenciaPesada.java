@@ -2,13 +2,13 @@ package grafo;
 
 import java.util.Iterator;
 
-public class WeightedAdjacencyMatrixGraph extends AdjacencyMatrixGraph {
+public class GrafoMatrizAdjacenciaPesada extends GrafoMatrizAdjacencia {
 
 	protected double[][] a;
 
 	protected double absentValue;
 
-	public WeightedAdjacencyMatrixGraph(int cardV, boolean directed,
+	public GrafoMatrizAdjacenciaPesada(int cardV, boolean directed,
 			double absent) {
 		super(cardV, directed);
 		super.a = null;
@@ -20,7 +20,7 @@ public class WeightedAdjacencyMatrixGraph extends AdjacencyMatrixGraph {
 				a[i][j] = absent;
 	}
 
-	public void addEdge(Vertex u, Vertex v) {
+	public void addEdge(Vertice u, Vertice v) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -28,7 +28,7 @@ public class WeightedAdjacencyMatrixGraph extends AdjacencyMatrixGraph {
 		throw new UnsupportedOperationException();
 	}
 
-	public void addEdge(Vertex u, Vertex v, double weight) {
+	public void addEdge(Vertice u, Vertice v, double weight) {
 		int uIndex = u.getIndex();
 		int vIndex = v.getIndex();
 
@@ -43,7 +43,7 @@ public class WeightedAdjacencyMatrixGraph extends AdjacencyMatrixGraph {
 			a[v][u] = weight;
 	}
 
-	public Iterator edgeIterator(Vertex u) {
+	public Iterator edgeIterator(Vertice u) {
 		return new EdgeIterator(u.getIndex());
 	}
 
@@ -51,16 +51,16 @@ public class WeightedAdjacencyMatrixGraph extends AdjacencyMatrixGraph {
 		return new EdgeIterator(u);
 	}
 
-	public WeightedEdgeIterator weightedEdgeIterator(Vertex u) {
+	public IteradorArestasPesadas weightedEdgeIterator(Vertice u) {
 		return weightedEdgeIterator(u.getIndex());
 	}
 
-	public WeightedEdgeIterator weightedEdgeIterator(int u) {
+	public IteradorArestasPesadas weightedEdgeIterator(int u) {
 		return new EdgeIterator(u);
 	}
 
-	public class EdgeIterator extends AdjacencyMatrixGraph.EdgeIterator
-			implements WeightedEdgeIterator {
+	public class EdgeIterator extends GrafoMatrizAdjacencia.EdgeIterator
+			implements IteradorArestasPesadas {
 
 		public EdgeIterator(int v) {
 			super(v);
@@ -92,7 +92,7 @@ public class WeightedAdjacencyMatrixGraph extends AdjacencyMatrixGraph {
 		}
 	}
 
-	public boolean edgeExists(Vertex u, Vertex v) {
+	public boolean edgeExists(Vertice u, Vertice v) {
 		return edgeExists(u.getIndex(), v.getIndex());
 	}
 
@@ -100,7 +100,7 @@ public class WeightedAdjacencyMatrixGraph extends AdjacencyMatrixGraph {
 		return a[u][v] != absentValue;
 	}
 
-	public double getWeight(Vertex u, Vertex v) {
+	public double getWeight(Vertice u, Vertice v) {
 		return getWeight(u.getIndex(), v.getIndex());
 	}
 
@@ -113,12 +113,12 @@ public class WeightedAdjacencyMatrixGraph extends AdjacencyMatrixGraph {
 
 		Iterator vertexIter = vertexIterator();
 		while (vertexIter.hasNext()) {
-			Vertex u = (Vertex) vertexIter.next();
+			Vertice u = (Vertice) vertexIter.next();
 			result += u + ":\n";
 
-			WeightedEdgeIterator edgeIter = weightedEdgeIterator(u);
+			IteradorArestasPesadas edgeIter = weightedEdgeIterator(u);
 			while (edgeIter.hasNext()) {
-				Vertex v = (Vertex) edgeIter.next();
+				Vertice v = (Vertice) edgeIter.next();
 				double w = edgeIter.getWeight();
 				result += "    " + v + ", weight = " + w + "\n";
 			}

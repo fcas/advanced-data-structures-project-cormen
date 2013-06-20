@@ -1,13 +1,13 @@
 package menorcaminho;
 
-import grafo.WeightedAdjacencyMatrixGraph;
+import grafo.GrafoMatrizAdjacenciaPesada;
 
-abstract public class AllPairsShortestPaths {
+abstract public class APSP {
 
 	abstract public double[][] computeShortestPaths(
-			WeightedAdjacencyMatrixGraph g);
+			GrafoMatrizAdjacenciaPesada g);
 
-	protected double[][] graphToMatrix(WeightedAdjacencyMatrixGraph g) {
+	protected double[][] graphToMatrix(GrafoMatrizAdjacenciaPesada g) {
 		int n = g.getCardV();
 
 		double[][] w = new double[n][n];

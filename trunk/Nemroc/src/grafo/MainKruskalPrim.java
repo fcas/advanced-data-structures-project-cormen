@@ -22,9 +22,9 @@ public class MainKruskalPrim {
 	private static List<String> arquivos = new ArrayList<String>();
 	static BufferedReader in;
 	
-	protected WeightedAdjacencyListGraph grafo;
+	protected GrafoListaAdjacenciaPesada grafo;
 	
-	public MainKruskalPrim(WeightedAdjacencyListGraph grafo) throws FileNotFoundException {
+	public MainKruskalPrim(GrafoListaAdjacenciaPesada grafo) throws FileNotFoundException {
 		
 		this.grafo = grafo;
 		
@@ -41,17 +41,17 @@ public class MainKruskalPrim {
 				break;
 				
 			case "prim":
-				WeightedAdjacencyListGraph primMST = (new Prim()).computeMST(grafo);
+				GrafoListaAdjacenciaPesada primMST = (new Prim()).computeMST(grafo);
 				
 				Iterator vertexIter = primMST.vertexIterator(); //iterador de vertices
 				double pesoTotal=0; //contador peso total
 				while (vertexIter.hasNext()){ //enquanto houver vertices
-					Vertex u = (Vertex) vertexIter.next(); //pega um vertice
+					Vertice u = (Vertice) vertexIter.next(); //pega um vertice
 					System.out.print(u + ":\n");
 					
-					WeightedEdgeIterator edgeIter = primMST.weightedEdgeIterator(u); //iterador de arestas do vertice acima
+					IteradorArestasPesadas edgeIter = primMST.weightedEdgeIterator(u); //iterador de arestas do vertice acima
 					while (edgeIter.hasNext()) { //para todas as arestas do vertice
-				    	Vertex v = (Vertex) edgeIter.next(); //le um vertice adjacente
+				    	Vertice v = (Vertice) edgeIter.next(); //le um vertice adjacente
 						if (u.getIndex() < v.getIndex()){ //verificador anti-duplicidade by pacotinho
 							pesoTotal += edgeIter.getWeight(); //conta peso
 							System.out.print( "    " + v + "\n");
@@ -62,17 +62,17 @@ public class MainKruskalPrim {
 				break;
 				
 			case "kruskal":
-				WeightedAdjacencyListGraph kruskalMST = (new Kruskal()).computeMST(grafo);
+				GrafoListaAdjacenciaPesada kruskalMST = (new Kruskal()).computeMST(grafo);
 				
 				Iterator vertexItera = kruskalMST.vertexIterator(); //iterador de vertices
 				double pesoTota=0; //contador peso total
 				while (vertexItera.hasNext()){ //enquanto houver vertices
-					Vertex u = (Vertex) vertexItera.next(); //pega um vertice
+					Vertice u = (Vertice) vertexItera.next(); //pega um vertice
 					System.out.print(u + ":\n");
 					
-					WeightedEdgeIterator edgeIter = kruskalMST.weightedEdgeIterator(u); //iterador de arestas do vertice acima
+					IteradorArestasPesadas edgeIter = kruskalMST.weightedEdgeIterator(u); //iterador de arestas do vertice acima
 					while (edgeIter.hasNext()) { //para todas as arestas do vertice
-				    	Vertex v = (Vertex) edgeIter.next(); //le um vertice adjacente
+				    	Vertice v = (Vertice) edgeIter.next(); //le um vertice adjacente
 						if (u.getIndex() < v.getIndex()){ //verificador anti-duplicidade by pacotinho
 							pesoTota += edgeIter.getWeight(); //conta peso
 							System.out.print( "    " + v + "\n");
@@ -100,7 +100,7 @@ public class MainKruskalPrim {
 
 		in = new BufferedReader(new FileReader(arquivos.get(0)));
 		String card = in.readLine();
-		WeightedAdjacencyListGraph grafo = new WeightedAdjacencyListGraph(Integer.parseInt(card), false);
+		GrafoListaAdjacenciaPesada grafo = new GrafoListaAdjacenciaPesada(Integer.parseInt(card), false);
 		for (int i = 0; i < Integer.parseInt(card); i++){
 			grafo.addVertex(i, Integer.toString(i));
 		}

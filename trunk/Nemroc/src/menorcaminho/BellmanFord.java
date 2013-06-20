@@ -1,18 +1,18 @@
 package menorcaminho;
 
-import grafo.Vertex;
-import grafo.WeightedAdjacencyListGraph;
-import grafo.WeightedEdgeIterator;
+import grafo.Vertice;
+import grafo.GrafoListaAdjacenciaPesada;
+import grafo.IteradorArestasPesadas;
 
 import java.util.Iterator;
 
 
-public class BellmanFord extends SingleSourceShortestPaths {
-	public BellmanFord(WeightedAdjacencyListGraph theGraph) {
+public class BellmanFord extends SSSP {
+	public BellmanFord(GrafoListaAdjacenciaPesada theGraph) {
 		super(theGraph);
 	}
 
-	public void computeShortestPaths(Vertex s) {
+	public void computeShortestPaths(Vertice s) {
 		initializeSingleSource(s);
 
 		int cardV = g.getCardV();
@@ -21,12 +21,12 @@ public class BellmanFord extends SingleSourceShortestPaths {
 			Iterator vertexIter = g.vertexIterator();
 
 			while (vertexIter.hasNext()) {
-				Vertex u = (Vertex) vertexIter.next();
+				Vertice u = (Vertice) vertexIter.next();
 				double du = getShortestPathInfo(u).getEstimate();
-				WeightedEdgeIterator edgeIter = g.weightedEdgeIterator(u);
+				IteradorArestasPesadas edgeIter = g.weightedEdgeIterator(u);
 
 				while (edgeIter.hasNext()) {
-					Vertex v = (Vertex) edgeIter.next();
+					Vertice v = (Vertice) edgeIter.next();
 					double w = edgeIter.getWeight();
 					getShortestPathInfo(v).relax(u, du, w);
 				}
@@ -36,12 +36,12 @@ public class BellmanFord extends SingleSourceShortestPaths {
 		Iterator vertexIter = g.vertexIterator();
 
 		while (vertexIter.hasNext()) {
-			Vertex u = (Vertex) vertexIter.next();
+			Vertice u = (Vertice) vertexIter.next();
 			double du = getShortestPathInfo(u).getEstimate();
-			WeightedEdgeIterator edgeIter = g.weightedEdgeIterator(u);
+			IteradorArestasPesadas edgeIter = g.weightedEdgeIterator(u);
 
 			while (edgeIter.hasNext()) {
-				Vertex v = (Vertex) edgeIter.next();
+				Vertice v = (Vertice) edgeIter.next();
 				double w = edgeIter.getWeight();
 				if (getShortestPathInfo(v).getEstimate() > du + w) {
 					noNegWeightCycle = false;

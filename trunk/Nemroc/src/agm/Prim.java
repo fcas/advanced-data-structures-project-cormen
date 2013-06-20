@@ -3,17 +3,17 @@ package agm;
 import java.util.Iterator;
 
 
-import fila.DynamicSetElement;
-import fila.MinHeapPriorityQueue;
-import fila.MinPriorityQueue;
-import fila.DynamicSetElement.Helper;
-import grafo.Vertex;
-import grafo.WeightedAdjacencyListGraph;
-import grafo.WeightedEdgeIterator;
+import fila.ElementoDinamico;
+import fila.HeapMinimoFilaPrioridade;
+import fila.FilaPrioridadeMinima;
+import fila.ElementoDinamico.Helper;
+import grafo.Vertice;
+import grafo.GrafoListaAdjacenciaPesada;
+import grafo.IteradorArestasPesadas;
 
-public class Prim implements MST {
-	public WeightedAdjacencyListGraph computeMST(WeightedAdjacencyListGraph g) {
-		MinPriorityQueue q = new MinHeapPriorityQueue();
+public class Prim implements AGM {
+	public GrafoListaAdjacenciaPesada computeMST(GrafoListaAdjacenciaPesada g) {
+		FilaPrioridadeMinima q = new HeapMinimoFilaPrioridade();
 
 		int cardV = g.getCardV();
 		PrimInfo[] vertex = new PrimInfo[cardV];
@@ -24,12 +24,12 @@ public class Prim implements MST {
 
 		while (!q.isEmpty()) {
 			PrimInfo uInfo = (PrimInfo) q.extractMin();
-			Vertex u = uInfo.theVertex;
+			Vertice u = uInfo.theVertex;
 
-			WeightedEdgeIterator edgeIter = g.weightedEdgeIterator(u);
+			IteradorArestasPesadas edgeIter = g.weightedEdgeIterator(u);
 
 			while (edgeIter.hasNext()) {
-				Vertex v = (Vertex) edgeIter.next();
+				Vertice v = (Vertice) edgeIter.next();
 				PrimInfo vInfo = vertex[v.getIndex()];
 				double weight = edgeIter.getWeight();
 				if (vInfo.handle != null && weight < vInfo.key.doubleValue()) {
@@ -39,7 +39,7 @@ public class Prim implements MST {
 			}
 		}
 
-		WeightedAdjacencyListGraph mst = (WeightedAdjacencyListGraph) g
+		GrafoListaAdjacenciaPesada mst = (GrafoListaAdjacenciaPesada) g
 				.useSameVertices();
 
 		for (int i = 0; i < cardV; i++) {
@@ -51,14 +51,14 @@ public class Prim implements MST {
 		return mst;
 	}
 
-	private static class PrimInfo implements DynamicSetElement {
-		public Vertex theVertex;
+	private static class PrimInfo implements ElementoDinamico {
+		public Vertice theVertex;
 		public Double key;
 
-		public Vertex pi;
+		public Vertice pi;
 		public Object handle;
 
-		public PrimInfo(Vertex v, MinPriorityQueue q) {
+		public PrimInfo(Vertice v, FilaPrioridadeMinima q) {
 			theVertex = v;
 			key = new Double(Double.POSITIVE_INFINITY);
 			pi = null;
@@ -74,7 +74,7 @@ public class Prim implements MST {
 		}
 
 		public int compareTo(Object e) {
-			return DynamicSetElement.Helper.compareTo(this, e);
+			return ElementoDinamico.Helper.compareTo(this, e);
 		}
 	}
 }

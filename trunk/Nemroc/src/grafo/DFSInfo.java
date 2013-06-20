@@ -9,7 +9,7 @@ public class DFSInfo {
 
 	private Color color;
 
-	private Vertex pi;
+	private Vertice pi;
 
 	public DFSInfo() {
 		d = -1;
@@ -42,11 +42,11 @@ public class DFSInfo {
 		return color;
 	}
 
-	public void setPredecessor(Vertex v) {
+	public void setPredecessor(Vertice v) {
 		pi = v;
 	}
 
-	public Vertex getPredecessor() {
+	public Vertice getPredecessor() {
 		return pi;
 	}
 
